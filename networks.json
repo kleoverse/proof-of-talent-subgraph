@@ -1,7 +1,22 @@
 {
   "goerli": {
     "Badges": {
-      "address": "0xFD75D91321816bd4772831621Af68089631eA459"
+      "address": "0xFD75D91321816bd4772831621Af68089631eA459",
+      "startBlock": 7681770
+    },
+    "AttestationsRegistry": {
+      "address": "0xe50CEebA7F0f796C65E92A3ea7A6d1B6e0b7A40E",
+      "startBlock": 7681770
+    }
+  },
+  "matic": {
+    "Badges": {
+      "address": "0x9C92849c0a882872b21a73693B2e37b463CEc201",
+      "startBlock": 33745090
+    },
+    "AttestationsRegistry": {
+      "address": "0xC33926eeF7195cC1128f48E8E877694dFe3c2dC4",
+      "startBlock": 33745110
     }
   }
 }

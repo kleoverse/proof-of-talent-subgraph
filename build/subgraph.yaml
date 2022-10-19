@@ -1,6 +1,6 @@
 specVersion: 0.0.4
 schema:
-  file: ./schema.graphql
+  file: schema.graphql
 dataSources:
   - kind: ethereum
     name: AttestationsRegistry
@@ -20,13 +20,13 @@ dataSources:
         - IdentityBadgeData
       abis:
         - name: AttestationsRegistry
-          file: ./abis/AttestationsRegistry.json
+          file: AttestationsRegistry/abis/AttestationsRegistry.json
       eventHandlers:
         - event: AttestationDeleted((uint256,address,address,uint256,uint32,bytes))
           handler: handleAttestationDeleted
         - event: AttestationRecorded((uint256,address,address,uint256,uint32,bytes))
           handler: handleAttestationRecorded
-      file: ./src/attestations-registry.ts
+      file: AttestationsRegistry/AttestationsRegistry.wasm
   - kind: ethereum
     name: Badges
     network: matic
@@ -45,9 +45,8 @@ dataSources:
         - IdentityBadgeData
       abis:
         - name: Badges
-          file: ./abis/Badges.json
+          file: Badges/abis/Badges.json
       eventHandlers:
-        - event: TransferSingle(indexed address,indexed address,indexed
-            address,uint256,uint256)
+        - event: TransferSingle(indexed address,indexed address,indexed address,uint256,uint256)
           handler: handleTransferSingle
-      file: ./src/badges.ts
+      file: Badges/Badges.wasm
