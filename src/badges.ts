@@ -1,3 +1,4 @@
+import { BigInt } from "@graphprotocol/graph-ts";
 import {
   ApprovalForAll as ApprovalForAllEvent,
   Badges,
@@ -16,6 +17,7 @@ export function handleTransferSingle(event: TransferSingleEvent): void {
   );
   if (!badgeEntity) {
     badgeEntity = new Badge(event.params.id.toString());
+    badgeEntity.claimersCount = BigInt.fromI32(0);
   }
   let BadgesContract = Badges.bind(event.address);
   const uri = BadgesContract.uri(event.params.id);

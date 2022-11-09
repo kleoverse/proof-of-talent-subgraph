@@ -202,6 +202,15 @@ export class Badge extends Entity {
       this.set("claimers", Value.fromStringArray(<Array<string>>value));
     }
   }
+
+  get claimersCount(): BigInt {
+    let value = this.get("claimersCount");
+    return value!.toBigInt();
+  }
+
+  set claimersCount(value: BigInt) {
+    this.set("claimersCount", Value.fromBigInt(value));
+  }
 }
 
 export class UserBadge extends Entity {

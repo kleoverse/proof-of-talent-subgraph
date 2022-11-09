@@ -19,6 +19,7 @@ type Badge @entity {
   type: BadgeType # string
   source: String # string
   claimers: [UserBadge!] @derivedFrom(field: "badge") # User
+  claimersCount: BigInt! # User
 }
 
 type UserBadge @entity {

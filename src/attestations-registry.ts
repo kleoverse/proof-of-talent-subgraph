@@ -9,6 +9,9 @@ import { Badge, IdentityBadgeData, User, UserBadge } from "../generated/schema";
 
 export function handleAttestationDeleted(event: AttestationDeletedEvent): void {
   let userEntity = User.load(event.params.attestation.owner.toHex());
+  let badgeEntity = Badge.load(
+    event.params.attestation.collectionId.toString()
+  );
   let userBadgeId = event.params.attestation.owner
     .toHex()
     .concat(event.params.attestation.collectionId.toString());
@@ -16,6 +19,9 @@ export function handleAttestationDeleted(event: AttestationDeletedEvent): void {
   if (userBadgeEntity) {
     store.remove("UserBadge", userBadgeEntity.id);
     userEntity!.badgesCount = userEntity!.badgesCount.minus(BigInt.fromI32(1));
+    userEntity!.save();
+    badgeEntity!.claimersCount = badgeEntity!.claimersCount.minus(BigInt.fromI32(1));
+    badgeEntity!.save();
   }
 }
 
@@ -49,6 +55,7 @@ export function handleAttestationRecorded(
   );
   if (!badgeEntity) {
     badgeEntity = new Badge(event.params.attestation.collectionId.toString());
+    badgeEntity.claimersCount = BigInt.fromI32(0);
   }
   badgeEntity.collectionId = event.params.attestation.collectionId;
   badgeEntity.issuer = event.params.attestation.issuer;
@@ -61,6 +68,8 @@ export function handleAttestationRecorded(
     userBadgeEntity = new UserBadge(userEntity.id.concat(badgeEntity.id));
     userEntity.badgesCount = userEntity.badgesCount.plus(BigInt.fromI32(1));
     userEntity.save();
+    badgeEntity.claimersCount = badgeEntity.claimersCount.plus(BigInt.fromI32(1));
+    badgeEntity.save();
   }
   userBadgeEntity.user = userEntity.id;
   userBadgeEntity.badge = badgeEntity.id;
