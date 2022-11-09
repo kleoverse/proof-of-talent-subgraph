@@ -8,6 +8,7 @@ type User @entity {
   id: ID!
   address: Bytes! # address
   badges: [UserBadge!]  @derivedFrom(field: "user") # Badge
+  badgesCount: BigInt! # Badge
 }
 
 type Badge @entity {

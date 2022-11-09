@@ -67,6 +67,15 @@ export class User extends Entity {
       this.set("badges", Value.fromStringArray(<Array<string>>value));
     }
   }
+
+  get badgesCount(): BigInt {
+    let value = this.get("badgesCount");
+    return value!.toBigInt();
+  }
+
+  set badgesCount(value: BigInt) {
+    this.set("badgesCount", Value.fromBigInt(value));
+  }
 }
 
 export class Badge extends Entity {

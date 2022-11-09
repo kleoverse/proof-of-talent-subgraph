@@ -1,22 +1,21 @@
-import { ByteArray, Bytes, ethereum, store } from "@graphprotocol/graph-ts";
+import { BigInt, ethereum, store } from "@graphprotocol/graph-ts";
 import {
   AttestationDeleted as AttestationDeletedEvent,
   AttestationRecorded as AttestationRecordedEvent,
   IssuerAuthorized as IssuerAuthorizedEvent,
   IssuerUnauthorized as IssuerUnauthorizedEvent,
-  OwnershipTransferred as OwnershipTransferredEvent,
-  Paused as PausedEvent,
-  Unpaused as UnpausedEvent,
 } from "../generated/AttestationsRegistry/AttestationsRegistry";
 import { Badge, IdentityBadgeData, User, UserBadge } from "../generated/schema";
 
 export function handleAttestationDeleted(event: AttestationDeletedEvent): void {
+  let userEntity = User.load(event.params.attestation.owner.toHex());
   let userBadgeId = event.params.attestation.owner
     .toHex()
     .concat(event.params.attestation.collectionId.toString());
   let userBadgeEntity = UserBadge.load(userBadgeId);
   if (userBadgeEntity) {
     store.remove("UserBadge", userBadgeEntity.id);
+    userEntity!.badgesCount = userEntity!.badgesCount.minus(BigInt.fromI32(1));
   }
 }
 
@@ -40,6 +39,7 @@ export function handleAttestationRecorded(
   let userEntity = User.load(event.params.attestation.owner.toHex());
   if (!userEntity) {
     userEntity = new User(event.params.attestation.owner.toHex());
+    userEntity.badgesCount = BigInt.fromI32(0);
   }
   userEntity.address = event.params.attestation.owner;
   userEntity.save();
@@ -59,6 +59,8 @@ export function handleAttestationRecorded(
   let userBadgeEntity = UserBadge.load(userEntity.id.concat(badgeEntity.id));
   if (!userBadgeEntity) {
     userBadgeEntity = new UserBadge(userEntity.id.concat(badgeEntity.id));
+    userEntity.badgesCount = userEntity.badgesCount.plus(BigInt.fromI32(1));
+    userEntity.save();
   }
   userBadgeEntity.user = userEntity.id;
   userBadgeEntity.badge = badgeEntity.id;
