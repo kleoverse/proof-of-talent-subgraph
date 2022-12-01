@@ -41,3 +41,7 @@ graph deploy --product hosted-service kleoverse-github/kleoverse-pot-testnet --n
 ```bash
 graph deploy --product hosted-service kleoverse-github/kleoverse-pot --network matic
 ```
+
+## Development
+
+- For in-depth documentation on Graph Node, see the [Graph Node documentation](https://thegraph.com/docs).
