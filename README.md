@@ -45,3 +45,8 @@ graph deploy --product hosted-service kleoverse-github/kleoverse-pot --network m
 ## Development
 
 - For in-depth documentation on Graph Node, see the [Graph Node documentation](https://thegraph.com/docs).
+
+## Subgraph Instances of Proof Of Talent Protocol
+
+- [Goerli Testnet](https://thegraph.com/explorer/subgraph/kleoverse-github/kleoverse-pot-testnet)
+- [Polygon Mainnet](https://thegraph.com/explorer/subgraph/kleoverse-github/kleoverse-pot)
