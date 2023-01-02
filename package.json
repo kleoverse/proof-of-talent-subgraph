@@ -4,7 +4,8 @@
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
-    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ sahilvasava/kleo-protocol",
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ kleoverse-github/kleoverse-pot",
+    "deploy-testnet": "graph deploy --node https://api.thegraph.com/deploy/ kleoverse-github/kleoverse-pot-testnet",
     "create-local": "graph create --node http://localhost:8020/ sahilvasava/kleo-protocol",
     "remove-local": "graph remove --node http://localhost:8020/ sahilvasava/kleo-protocol",
     "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 sahilvasava/kleo-protocol",

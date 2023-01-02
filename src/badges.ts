@@ -21,7 +21,7 @@ export function handleTransferSingle(event: TransferSingleEvent): void {
   }
   let BadgesContract = Badges.bind(event.address);
   const uri = BadgesContract.uri(event.params.id);
-  badgeEntity.uri = uri.replace("{id}", event.params.id.toString());
+  badgeEntity.uri = uri.replace("{id}", event.params.id.toHexString().slice(2).padStart(64, "0"));
   badgeEntity.collectionId = event.params.id;
   badgeEntity.save();
 }
